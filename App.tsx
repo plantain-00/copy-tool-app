@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text, View, TextInput, Button, AsyncStorage, Clipboard } from "react-native";
+import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard } from "react-native";
 import io from "socket.io-client";
 
 function getRoom() {
@@ -63,10 +63,9 @@ export default class App extends React.Component {
                     borderColor: "#ccc",
                     borderStyle: "solid",
                     borderWidth: 1,
-                    alignSelf: "center",
-                    alignContent: "center",
+                    justifyContent: "center",
                 }} onPress={() => this.copyTextToClipboard(message.value)}>
-                    <Text>copy</Text>
+                    <Text style={{ textAlign: "center" }}>copy</Text>
                 </TouchableOpacity>;
             } else if (message.kind === "file") {
                 // content = <a href="message.url" download="message.value.name">{message.value.name}</a>;
@@ -79,16 +78,16 @@ export default class App extends React.Component {
                             backgroundColor: "#777",
                             color: "#fff",
                             borderRadius: 3,
+                            justifyContent: "center",
                             textAlign: "center",
-                            textAlignVertical: "center",
                         }}>{message.moment}</Text>
                         <Text style={{
                             width: 38,
                             backgroundColor: "#5bc0de",
                             color: "#fff",
                             borderRadius: 3,
+                            justifyContent: "center",
                             textAlign: "center",
-                            textAlignVertical: "center",
                         }}>{message.kind}</Text>
                         {button}
                     </View>
@@ -100,9 +99,19 @@ export default class App extends React.Component {
         return (
             <View style={{ flex: 1, padding: 15 }}>
                 <Text style={{ height: 40 }}>Copy-Tool</Text>
-                <TextInput style={{ height: 40, alignSelf: "center" }} onChangeText={room => this.changeRoom(room)} value={this.state.room}></TextInput>
-                <TextInput style={{ height: 40 }} onChangeText={text => this.changeNewText(text)} value={this.state.newText}></TextInput>
-                <Button color="#286090" title={buttonText} onPress={() => this.copyText()} />
+                <TextInput style={{ height: 40, alignSelf: "center", marginBottom: 5 }} onChangeText={room => this.changeRoom(room)} value={this.state.room}></TextInput>
+                <TextInput style={{ height: 40, marginBottom: 5 }} onChangeText={text => this.changeNewText(text)} value={this.state.newText}></TextInput>
+                <TouchableOpacity style={{
+                    height: 40,
+                    backgroundColor: "#286090",
+                    justifyContent: "center",
+                    marginBottom: 5,
+                }} onPress={() => this.copyText()} >
+                    <Text style={{
+                        color: "#fff",
+                        textAlign: "center",
+                    }}>{buttonText}</Text>
+                </TouchableOpacity>
                 {messages}
             </View>
         );
