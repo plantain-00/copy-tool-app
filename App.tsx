@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text, View, TextInput, Button, AsyncStorage } from "react-native";
+import { TouchableOpacity, Text, View, TextInput, Button, AsyncStorage, Clipboard } from "react-native";
 import io from "socket.io-client";
 
 function getRoom() {
@@ -65,7 +65,7 @@ export default class App extends React.Component {
                     borderWidth: 1,
                     alignSelf: "center",
                     alignContent: "center",
-                }} onPress={() => this.copyTextToClipboard()}>
+                }} onPress={() => this.copyTextToClipboard(message.value)}>
                     <Text>copy</Text>
                 </TouchableOpacity>;
             } else if (message.kind === "file") {
@@ -183,8 +183,8 @@ export default class App extends React.Component {
         this.socket.emit("copy", copyData);
         this.setState({ newText: "" });
     }
-    private copyTextToClipboard() {
-        // todo
+    private copyTextToClipboard(text: string) {
+        Clipboard.setString(text);
     }
 }
 
