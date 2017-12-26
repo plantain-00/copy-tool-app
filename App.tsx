@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput, Button, AsyncStorage } from "react-native";
+import { TouchableOpacity, Text, View, TextInput, Button, AsyncStorage } from "react-native";
 import io from "socket.io-client";
 
 function getRoom() {
@@ -48,27 +48,61 @@ export default class App extends React.Component {
             let content: JSX.Element | undefined;
             let button: JSX.Element | undefined;
             if (message.kind === "text") {
-                content = <Text>{message.value}</Text>;
-                button = <Button title="copy" onPress={() => this.copyTextToClipboard()} />;
+                content = <Text style={{
+                    padding: 9.5,
+                    backgroundColor: "#f5f5f5",
+                    borderWidth: 1,
+                    borderStyle: "solid",
+                    borderColor: "#ccc",
+                    borderRadius: 4,
+                    marginBottom: 10,
+                }}>{message.value}</Text>;
+                button = <TouchableOpacity style={{
+                    width: 39,
+                    borderRadius: 3,
+                    borderColor: "#ccc",
+                    borderStyle: "solid",
+                    borderWidth: 1,
+                    alignSelf: "center",
+                    alignContent: "center",
+                }} onPress={() => this.copyTextToClipboard()}>
+                    <Text>copy</Text>
+                </TouchableOpacity>;
             } else if (message.kind === "file") {
                 // content = <a href="message.url" download="message.value.name">{message.value.name}</a>;
             }
             return (
                 <View key={message.id}>
-                    <Text>{message.moment}</Text>
-                    <Text>{message.kind}</Text>
+                    <View style={{ height: 21, flexDirection: "row" }}>
+                        <Text style={{
+                            width: 67,
+                            backgroundColor: "#777",
+                            color: "#fff",
+                            borderRadius: 3,
+                            textAlign: "center",
+                            textAlignVertical: "center",
+                        }}>{message.moment}</Text>
+                        <Text style={{
+                            width: 38,
+                            backgroundColor: "#5bc0de",
+                            color: "#fff",
+                            borderRadius: 3,
+                            textAlign: "center",
+                            textAlignVertical: "center",
+                        }}>{message.kind}</Text>
+                        {button}
+                    </View>
                     {content}
-                    {button}
                 </View>
             );
         });
         const buttonText = this.state.clientCount > 0 ? `Copy the text to ${this.state.clientCount} clients` : "No clients to sent";
         return (
-            <View style={styles.container}>
-                <Text style={styles.row}>Copy-Tool</Text>
-                <TextInput onChangeText={room => this.changeRoom(room)} value={this.state.room}></TextInput>
-                <TextInput onChangeText={text => this.changeNewText(text)} value={this.state.newText}></TextInput>
-                <Button title={buttonText} onPress={() => this.copyText()} />
+            <View style={{ flex: 1, padding: 15 }}>
+                <Text style={{ height: 40 }}>Copy-Tool</Text>
+                <TextInput style={{ height: 40, alignSelf: "center" }} onChangeText={room => this.changeRoom(room)} value={this.state.room}></TextInput>
+                <TextInput style={{ height: 40 }} onChangeText={text => this.changeNewText(text)} value={this.state.newText}></TextInput>
+                <Button color="#286090" title={buttonText} onPress={() => this.copyText()} />
                 {messages}
             </View>
         );
@@ -153,18 +187,6 @@ export default class App extends React.Component {
         // todo
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    row: {
-        marginTop: 5,
-    },
-});
 
 export type CopyData = {
     kind: DataKind.text,
