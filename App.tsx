@@ -1,17 +1,10 @@
 import React from "react";
 import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard } from "react-native";
 import io from "socket.io-client";
+import { RelativeTime } from "relative-time-react-native-component";
 
 function getRoom() {
     return Math.round(Math.random() * 35 * Math.pow(36, 9)).toString(36);
-}
-
-function formatTimeNumber(num: number) {
-    return num < 10 ? "0" + num : num.toString();
-}
-
-function getNow() {
-    return `${formatTimeNumber(new Date().getHours())}:${formatTimeNumber(new Date().getMinutes())}:${formatTimeNumber(new Date().getSeconds())}`;
 }
 
 export default class App extends React.Component {
@@ -74,13 +67,17 @@ export default class App extends React.Component {
                 <View key={message.id}>
                     <View style={{ height: 21, flexDirection: "row" }}>
                         <Text style={{
-                            width: 67,
+                            minWidth: 67,
                             backgroundColor: "#777",
                             color: "#fff",
                             borderRadius: 3,
                             justifyContent: "center",
                             textAlign: "center",
-                        }}>{message.moment}</Text>
+                            paddingLeft: 7,
+                            paddingRight: 7,
+                        }}>
+                            <RelativeTime time={message.moment}></RelativeTime>
+                        </Text>
                         <Text style={{
                             width: 38,
                             backgroundColor: "#5bc0de",
@@ -140,12 +137,12 @@ export default class App extends React.Component {
                     kind: DataKind.file,
                     value: file,
                     url: URL.createObjectURL(file),
-                    moment: getNow(),
+                    moment: Date.now(),
                     id: this.id++,
                 });
                 this.setState({ acceptMessages: this.state.acceptMessages });
             } else {
-                data.moment = getNow();
+                data.moment = Date.now();
                 data.id = this.id++;
                 this.state.acceptMessages.unshift(data);
                 this.setState({ acceptMessages: this.state.acceptMessages });
@@ -155,7 +152,7 @@ export default class App extends React.Component {
             this.state.acceptMessages.unshift({
                 kind: DataKind.text,
                 value: `the ${data.kind} is sent successfully to ${this.state.clientCount} clients.`,
-                moment: getNow(),
+                moment: Date.now(),
                 id: this.id++,
             });
             this.setState({ acceptMessages: this.state.acceptMessages });
@@ -169,7 +166,7 @@ export default class App extends React.Component {
             this.state.acceptMessages.unshift({
                 kind: DataKind.text,
                 value: "No clients to sent.",
-                moment: getNow(),
+                moment: Date.now(),
                 id: this.id++,
             });
             this.setState({ acceptMessages: this.state.acceptMessages });
@@ -179,7 +176,7 @@ export default class App extends React.Component {
             this.state.acceptMessages.unshift({
                 kind: DataKind.text,
                 value: "No text to sent.",
-                moment: getNow(),
+                moment: Date.now(),
                 id: this.id++,
             });
             this.setState({ acceptMessages: this.state.acceptMessages });
@@ -210,7 +207,7 @@ const enum DataKind {
 type TextData = {
     kind: DataKind.text;
     value: string;
-    moment?: string;
+    moment: number;
     id?: number;
 };
 
@@ -225,6 +222,6 @@ type FileData = {
     kind: DataKind.file;
     value: File;
     url: string;
-    moment: string;
+    moment: number;
     id: number;
 };
