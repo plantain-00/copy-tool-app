@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "react": "16.0.0",
-    "react-native": "0.50.3",
+    "react-native": "0.51.0",
     "relative-time-react-native-component": "4.2.1",
     "socket.io-client": "2.0.4"
   }
