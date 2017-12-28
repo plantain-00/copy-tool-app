@@ -96,8 +96,9 @@ export default class App extends React.Component {
         return (
             <ScrollView style={{ flex: 1, padding: 15 }}>
                 <Text style={{ height: 40 }}>Copy-Tool</Text>
-                <TextInput style={{ height: 40, alignSelf: "center", marginBottom: 5 }}
+                <TextInput style={{ height: 40, width: "100%", marginBottom: 5 }}
                     placeholder="room"
+                    autoCapitalize="none"
                     onChangeText={room => this.changeRoom(room)}
                     onBlur={() => this.connectToNewRoom()}
                     value={this.state.room}>
@@ -106,6 +107,7 @@ export default class App extends React.Component {
                     placeholder="text message"
                     autoFocus
                     multiline
+                    autoCapitalize="none"
                     numberOfLines={5}
                     onChangeText={text => this.changeNewText(text)}
                     value={this.state.newText}>
