@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard } from "react-native";
+import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard, ScrollView } from "react-native";
 import io from "socket.io-client";
 import { RelativeTime } from "relative-time-react-native-component";
 
@@ -94,10 +94,22 @@ export default class App extends React.Component {
         });
         const buttonText = this.state.clientCount > 0 ? `Copy the text to ${this.state.clientCount} clients` : "No clients to sent";
         return (
-            <View style={{ flex: 1, padding: 15 }}>
+            <ScrollView style={{ flex: 1, padding: 15 }}>
                 <Text style={{ height: 40 }}>Copy-Tool</Text>
-                <TextInput style={{ height: 40, alignSelf: "center", marginBottom: 5 }} onChangeText={room => this.changeRoom(room)} value={this.state.room}></TextInput>
-                <TextInput style={{ height: 40, marginBottom: 5 }} onChangeText={text => this.changeNewText(text)} value={this.state.newText}></TextInput>
+                <TextInput style={{ height: 40, alignSelf: "center", marginBottom: 5 }}
+                    placeholder="room"
+                    onChangeText={room => this.changeRoom(room)}
+                    onBlur={() => this.connectToNewRoom()}
+                    value={this.state.room}>
+                </TextInput>
+                <TextInput style={{ height: 110, marginBottom: 5 }}
+                    placeholder="text message"
+                    autoFocus
+                    multiline
+                    numberOfLines={5}
+                    onChangeText={text => this.changeNewText(text)}
+                    value={this.state.newText}>
+                </TextInput>
                 <TouchableOpacity style={{
                     height: 40,
                     backgroundColor: "#286090",
@@ -110,23 +122,22 @@ export default class App extends React.Component {
                     }}>{buttonText}</Text>
                 </TouchableOpacity>
                 {messages}
-            </View>
+            </ScrollView>
         );
     }
     private changeNewText(text: string) {
         this.setState({ newText: text });
     }
     private changeRoom(room: string) {
-        if (room !== this.state.room) {
-            this.setState({ room }, () => {
-                AsyncStorage.setItem("room", this.state.room).then(() => {
-                    if (this.socket) {
-                        this.socket.disconnect();
-                    }
-                    this.connect();
-                });
-            });
-        }
+        this.setState({ room });
+    }
+    private connectToNewRoom() {
+        AsyncStorage.setItem("room", this.state.room).then(() => {
+            if (this.socket) {
+                this.socket.disconnect();
+            }
+            this.connect();
+        });
     }
     private connect() {
         this.socket = io("https://copy.yorkyao.xyz/", { query: { room: this.state.room } });
