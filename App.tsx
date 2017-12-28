@@ -1,7 +1,9 @@
 import React from "react";
-import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard, ScrollView } from "react-native";
+import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard, ScrollView, Platform } from "react-native";
 import io from "socket.io-client";
 import { RelativeTime } from "relative-time-react-native-component";
+import { DocumentPicker, DocumentPickerUtil } from "react-native-document-picker";
+import * as RNFS from "react-native-fs";
 
 function getRoom() {
     return Math.round(Math.random() * 35 * Math.pow(36, 9)).toString(36);
@@ -93,6 +95,17 @@ export default class App extends React.Component {
             );
         });
         const buttonText = this.state.clientCount > 0 ? `Copy the text to ${this.state.clientCount} clients` : "No clients to sent";
+        const pickFile = Platform.OS === "android" ? <TouchableOpacity style={{
+            height: 40,
+            backgroundColor: "#286090",
+            justifyContent: "center",
+            marginBottom: 5,
+        }} onPress={() => this.pickFile()} >
+            <Text style={{
+                color: "#fff",
+                textAlign: "center",
+            }}>Pick file</Text>
+        </TouchableOpacity> : null;
         return (
             <ScrollView style={{ flex: 1, padding: 15 }}>
                 <Text style={{ height: 40 }}>Copy-Tool</Text>
@@ -123,6 +136,7 @@ export default class App extends React.Component {
                         textAlign: "center",
                     }}>{buttonText}</Text>
                 </TouchableOpacity>
+                {pickFile}
                 {messages}
             </ScrollView>
         );
@@ -205,6 +219,50 @@ export default class App extends React.Component {
     private copyTextToClipboard(text: string) {
         Clipboard.setString(text);
     }
+    private pickFile() {
+        if (this.state.clientCount <= 0) {
+            this.state.acceptMessages.unshift({
+                kind: DataKind.text,
+                value: "No clients to sent.",
+                moment: Date.now(),
+                id: this.id++,
+            });
+            this.setState({ acceptMessages: this.state.acceptMessages });
+            return;
+        }
+
+        DocumentPicker.show({
+            filetype: [DocumentPickerUtil.allFiles()],
+        }, (error, res) => {
+            if (error) {
+                // tslint:disable-next-line:no-console
+                console.error(error);
+            } else {
+                const extensionName = res.type.split("/")[1];
+                const fileName = res.fileName || `no name.${extensionName}`;
+
+                if (res.fileSize >= 10 * 1024 * 1024) {
+                    this.state.acceptMessages.unshift({
+                        kind: DataKind.text,
+                        value: "the file is too large(>= 10MB).",
+                        moment: Date.now(),
+                        id: this.id++,
+                    });
+                    this.setState({ acceptMessages: this.state.acceptMessages });
+                    return;
+                }
+
+                RNFS.readFile(res.uri, "base64").then(file => {
+                    this.socket.emit("copy", {
+                        kind: DataKind.base64,
+                        value: file,
+                        name: fileName,
+                        type: res.type,
+                    });
+                });
+            }
+        });
+    }
 }
 
 export type CopyData = {
@@ -215,6 +273,7 @@ export type CopyData = {
 const enum DataKind {
     text = "text",
     file = "file",
+    base64 = "base64",
 }
 
 type TextData = {

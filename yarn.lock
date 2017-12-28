@@ -123,7 +123,13 @@
   version "8.5.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.5.2.tgz#83b8103fa9a2c2e83d78f701a9aa7c9539739aa5"
 
-"@types/react-native@0.51.7":
+"@types/react-native-fs@2.8.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-fs/-/react-native-fs-2.8.0.tgz#dd7d996b4645fae57b446ed5b477054832abd7a7"
+  dependencies:
+    "@types/react-native" "*"
+
+"@types/react-native@*", "@types/react-native@0.51.7":
   version "0.51.7"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.51.7.tgz#4efed51d1267a288a7fba12d1ee72f67395a95e1"
 
@@ -1112,6 +1118,10 @@ backo2@1.0.2:
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
+
+base-64@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/base-64/-/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
 
 base64-arraybuffer@0.1.5:
   version "0.1.5"
@@ -3941,6 +3951,17 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-native-document-picker@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-document-picker/-/react-native-document-picker-2.1.0.tgz#61bbe113435a9d7bf67ab77093a4092d76b52fe3"
+
+react-native-fs@2.9.6:
+  version "2.9.6"
+  resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.9.6.tgz#9e4866fc8bb8264612dc04da2892722e48238041"
+  dependencies:
+    base-64 "^0.1.0"
+    utf8 "^2.1.1"
+
 react-native@*, react-native@0.51.0:
   version "0.51.0"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.51.0.tgz#fe25934b3030fd323f3ca1a70f034133465955ed"
@@ -4891,6 +4912,10 @@ ultron@~1.1.0:
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
+
+utf8@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/utf8/-/utf8-2.1.2.tgz#1fa0d9270e9be850d9b05027f63519bf46457d96"
 
 util-deprecate@1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
