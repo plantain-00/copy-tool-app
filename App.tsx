@@ -4,6 +4,7 @@ import io from "socket.io-client";
 import { RelativeTime } from "relative-time-react-native-component";
 import { DocumentPicker, DocumentPickerUtil } from "react-native-document-picker";
 import * as RNFS from "react-native-fs";
+import * as base64 from "base-64";
 
 function getRoom() {
     return Math.round(Math.random() * 35 * Math.pow(36, 9)).toString(36);
@@ -11,7 +12,7 @@ function getRoom() {
 
 export default class App extends React.Component {
     state = {
-        acceptMessages: [] as (TextData | FileData)[],
+        acceptMessages: [] as (TextData | Base64Data)[],
         newText: "",
         clientCount: 0,
         room: "",
@@ -53,7 +54,8 @@ export default class App extends React.Component {
                     marginBottom: 10,
                 }}>{message.value}</Text>;
                 button = <TouchableOpacity style={{
-                    width: 39,
+                    paddingLeft: 7,
+                    paddingRight: 7,
                     borderRadius: 3,
                     borderColor: "#ccc",
                     borderStyle: "solid",
@@ -62,8 +64,14 @@ export default class App extends React.Component {
                 }} onPress={() => this.copyTextToClipboard(message.value)}>
                     <Text style={{ textAlign: "center" }}>copy</Text>
                 </TouchableOpacity>;
-            } else if (message.kind === "file") {
-                // content = <a href="message.url" download="message.value.name">{message.value.name}</a>;
+            } else if (message.kind === "base64") {
+                button = <TouchableOpacity style={{
+                    paddingLeft: 7,
+                    paddingRight: 7,
+                    justifyContent: "center",
+                }} onPress={() => this.downloadFile(message)}>
+                    <Text style={{ textAlign: "center", color: "#337ab7" }}>{message.name}</Text>
+                </TouchableOpacity>;
             }
             return (
                 <View key={message.id}>
@@ -81,12 +89,13 @@ export default class App extends React.Component {
                             <RelativeTime time={message.moment}></RelativeTime>
                         </Text>
                         <Text style={{
-                            width: 38,
                             backgroundColor: "#5bc0de",
                             color: "#fff",
                             borderRadius: 3,
                             justifyContent: "center",
                             textAlign: "center",
+                            paddingLeft: 7,
+                            paddingRight: 7,
                         }}>{message.kind}</Text>
                         {button}
                     </View>
@@ -157,13 +166,23 @@ export default class App extends React.Component {
     }
     private connect() {
         this.socket = io("https://copy.yorkyao.xyz/", { query: { room: this.state.room } });
-        this.socket.on("copy", (data: TextData | ArrayBufferData) => {
+        this.socket.on("copy", (data: TextData | ArrayBufferData | Base64Data) => {
             if (data.kind === DataKind.file) {
-                const file = new File([data.value], data.name, { type: data.type });
                 this.state.acceptMessages.unshift({
-                    kind: DataKind.file,
-                    value: file,
-                    url: URL.createObjectURL(file),
+                    kind: DataKind.base64,
+                    value: base64.encode(new Uint8Array(data.value).reduce((p, c) => p + String.fromCharCode(c), "")),
+                    name: data.name,
+                    type: data.type,
+                    moment: Date.now(),
+                    id: this.id++,
+                });
+                this.setState({ acceptMessages: this.state.acceptMessages });
+            } else if (data.kind === DataKind.base64) {
+                this.state.acceptMessages.unshift({
+                    kind: DataKind.base64,
+                    value: data.value,
+                    name: data.name,
+                    type: data.type,
                     moment: Date.now(),
                     id: this.id++,
                 });
@@ -263,6 +282,13 @@ export default class App extends React.Component {
             }
         });
     }
+    private downloadFile(message: Base64Data) {
+        const filepath = RNFS.DocumentDirectoryPath + "/" + message.name;
+        RNFS.writeFile(filepath, message.value, "base64").then((success) => {
+            // tslint:disable-next-line:no-console
+            console.log(`file: ${filepath}`);
+        });
+    }
 }
 
 export type CopyData = {
@@ -290,10 +316,11 @@ type ArrayBufferData = {
     type: string;
 };
 
-type FileData = {
-    kind: DataKind.file;
-    value: File;
-    url: string;
+type Base64Data = {
+    kind: DataKind.base64;
+    value: string;
+    name: string;
+    type: string;
     moment: number;
     id: number;
 };
