@@ -127,6 +127,10 @@
   version "8.5.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.5.2.tgz#83b8103fa9a2c2e83d78f701a9aa7c9539739aa5"
 
+"@types/react-native-document-picker@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-document-picker/-/react-native-document-picker-2.0.0.tgz#8ecb47e9eb609ada9e13a8fcb42e4c20e1f5c613"
+
 "@types/react-native-fs@2.8.0":
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/@types/react-native-fs/-/react-native-fs-2.8.0.tgz#dd7d996b4645fae57b446ed5b477054832abd7a7"
