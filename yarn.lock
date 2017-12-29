@@ -1599,7 +1599,7 @@ crc@3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/crc/-/crc-3.3.0.tgz#fa622e1bc388bf257309082d6b65200ce67090ba"
 
-create-react-class@^15.5.2:
+create-react-class@^15.5.2, create-react-class@^15.6.0:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.2.tgz#cf1ed15f12aad7f14ef5f2dfe05e6c42f91ef02a"
   dependencies:
@@ -3947,7 +3947,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.8, prop-types@^15.6.0:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -3970,6 +3970,10 @@ punycode@^1.4.1:
 q@^1.4.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
+
+qr.js@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/qr.js/-/qr.js-0.0.0.tgz#cace86386f59a0db8050fa90d9b6b0e88a1e364f"
 
 qs@4.0.0:
   version "4.0.0"
@@ -4049,6 +4053,14 @@ react-native-fs@2.9.6:
   dependencies:
     base-64 "^0.1.0"
     utf8 "^2.1.1"
+
+react-native-qrcode@0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/react-native-qrcode/-/react-native-qrcode-0.2.6.tgz#dd92f151c118860092af9fa5bc0995f2f9dddb16"
+  dependencies:
+    create-react-class "^15.6.0"
+    prop-types "^15.5.10"
+    qr.js "0.0.0"
 
 react-native@*, react-native@0.51.0:
   version "0.51.0"

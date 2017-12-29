@@ -5,10 +5,13 @@ import { RelativeTime } from "relative-time-react-native-component";
 import { DocumentPicker, DocumentPickerUtil } from "react-native-document-picker";
 import * as RNFS from "react-native-fs";
 import * as base64 from "base-64";
+import QRCode from "react-native-qrcode";
 
 function getRoom() {
     return Math.round(Math.random() * 35 * Math.pow(36, 9)).toString(36);
 }
+
+const baseUrl = "https://copy.yorkyao.xyz/";
 
 export default class App extends React.Component {
     state = {
@@ -115,6 +118,7 @@ export default class App extends React.Component {
                 textAlign: "center",
             }}>Pick file</Text>
         </TouchableOpacity> : null;
+        const url = baseUrl + "#" + this.state.room;
         return (
             <ScrollView style={{ flex: 1, padding: 15 }}>
                 <Text style={{ height: 40 }}>Copy-Tool</Text>
@@ -147,6 +151,7 @@ export default class App extends React.Component {
                 </TouchableOpacity>
                 {pickFile}
                 {messages}
+                <QRCode value={url} size={150} />
             </ScrollView>
         );
     }
@@ -165,7 +170,7 @@ export default class App extends React.Component {
         });
     }
     private connect() {
-        this.socket = io("https://copy.yorkyao.xyz/", { query: { room: this.state.room } });
+        this.socket = io(baseUrl, { query: { room: this.state.room } });
         this.socket.on("copy", (data: TextData | ArrayBufferData | Base64Data) => {
             if (data.kind === DataKind.file) {
                 this.state.acceptMessages.unshift({
