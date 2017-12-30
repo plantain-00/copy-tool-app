@@ -137,6 +137,12 @@
   dependencies:
     "@types/react-native" "*"
 
+"@types/react-native-qrcode@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-qrcode/-/react-native-qrcode-0.2.0.tgz#8f4e8243552b358a63dfe8e86a6213e27d2d26f0"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-native@*", "@types/react-native@0.51.7":
   version "0.51.7"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.51.7.tgz#4efed51d1267a288a7fba12d1ee72f67395a95e1"
