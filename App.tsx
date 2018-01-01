@@ -1,14 +1,27 @@
 import React from "react";
-import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard, ScrollView, Platform } from "react-native";
+import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard, ScrollView, Platform, PushNotificationIOS } from "react-native";
 import io from "socket.io-client";
 import { RelativeTime } from "relative-time-react-native-component";
 import { DocumentPicker, DocumentPickerUtil } from "react-native-document-picker";
 import * as RNFS from "react-native-fs";
 import * as base64 from "base-64";
 import QRCode from "react-native-qrcode";
+import PushNotification from "react-native-push-notification";
 
 function getRoom() {
     return Math.round(Math.random() * 35 * Math.pow(36, 9)).toString(36);
+}
+
+PushNotification.configure({
+    onNotification: notification => {
+        if (Platform.OS === "ios") {
+            (notification as any).finish(PushNotificationIOS.FetchResult.NoData);
+        }
+    },
+});
+
+function notify(title: string) {
+    PushNotification.localNotification({ message: title });
 }
 
 const baseUrl = "https://copy.yorkyao.xyz/";
@@ -182,6 +195,7 @@ export default class App extends React.Component {
                     id: this.id++,
                 });
                 this.setState({ acceptMessages: this.state.acceptMessages });
+                notify("You got a file!");
             } else if (data.kind === DataKind.base64) {
                 this.state.acceptMessages.unshift({
                     kind: DataKind.base64,
@@ -192,11 +206,13 @@ export default class App extends React.Component {
                     id: this.id++,
                 });
                 this.setState({ acceptMessages: this.state.acceptMessages });
+                notify("You got a file!");
             } else {
                 data.moment = Date.now();
                 data.id = this.id++;
                 this.state.acceptMessages.unshift(data);
                 this.setState({ acceptMessages: this.state.acceptMessages });
+                notify("You got a text message!");
             }
         });
         this.socket.on("message_sent", (data: { kind: DataKind }) => {

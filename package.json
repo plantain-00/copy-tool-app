@@ -11,6 +11,7 @@
     "@types/react-native": "0.51.7",
     "@types/react-native-document-picker": "2.0.0",
     "@types/react-native-fs": "2.8.0",
+    "@types/react-native-push-notification": "3.0.0",
     "@types/react-native-qrcode": "0.2.0",
     "@types/react-test-renderer": "16.0.0",
     "@types/socket.io-client": "1.4.32",
@@ -39,6 +40,7 @@
     "react-native": "0.51.0",
     "react-native-document-picker": "2.1.0",
     "react-native-fs": "2.9.6",
+    "react-native-push-notification": "3.0.2",
     "react-native-qrcode": "0.2.6",
     "relative-time-react-native-component": "4.2.1",
     "socket.io-client": "2.0.4"
