@@ -36,12 +36,14 @@
   },
   "dependencies": {
     "base-64": "0.1.0",
+    "js-split-file": "2.0.0",
     "react": "16.2.0",
     "react-native": "0.51.0",
     "react-native-document-picker": "2.1.0",
     "react-native-fs": "2.9.6",
     "react-native-push-notification": "3.0.2",
     "react-native-qrcode": "0.2.6",
+    "react-native-webrtc": "1.58.3",
     "relative-time-react-native-component": "4.2.1",
     "socket.io-client": "2.0.4"
   }

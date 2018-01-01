@@ -3,6 +3,7 @@ package com.copytoolapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oney.WebRTCModule.WebRTCModulePackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.rnfs.RNFSPackage;
 import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new WebRTCModulePackage(),
             new ReactNativePushNotificationPackage(),
             new RNFSPackage(),
             new ReactNativeDocumentPicker()

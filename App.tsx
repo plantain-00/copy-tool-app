@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard, ScrollView, Platform, PushNotificationIOS } from "react-native";
+import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard, ScrollView, Platform, PushNotificationIOS, ProgressBarAndroid, ProgressViewIOS } from "react-native";
 import io from "socket.io-client";
 import { RelativeTime } from "relative-time-react-native-component";
 import { DocumentPicker, DocumentPickerUtil } from "react-native-document-picker";
@@ -7,6 +7,12 @@ import * as RNFS from "react-native-fs";
 import * as base64 from "base-64";
 import QRCode from "react-native-qrcode";
 import PushNotification from "react-native-push-notification";
+import { RTCDataChannel, RTCPeerConnection, RTCSessionDescription } from "react-native-webrtc";
+import SplitFile from "js-split-file/browser";
+
+const supportWebRTC = true;
+
+const blocks: Uint8Array[] = [];
 
 function getRoom() {
     return Math.round(Math.random() * 35 * Math.pow(36, 9)).toString(36);
@@ -32,9 +38,16 @@ export default class App extends React.Component {
         newText: "",
         clientCount: 0,
         room: "",
+        files: [] as Block[],
+        speed: 100,
+        dataChannelIsOpen: false,
     };
+    private dataChannel: RTCDataChannel | null = null;
     private socket: SocketIOClient.Socket;
     private id = 1;
+    private peerConnection = supportWebRTC ? new RTCPeerConnection({ iceServers: [{ urls: "stun:stun.l.google.com:19302" }] }) : null;
+    private splitFile = new SplitFile();
+    private timer: NodeJS.Timer;
     componentDidMount() {
         AsyncStorage.getItem("room").then(roomInStorage => {
             if (!roomInStorage) {
@@ -49,10 +62,102 @@ export default class App extends React.Component {
                 });
             }
         });
+
+        if (this.peerConnection) {
+            this.dataChannel = this.peerConnection.createDataChannel("copy_tool_channel_name");
+            this.peerConnection.ondatachannel = event => {
+                event.channel.onopen = e => {
+                    this.state.acceptMessages.unshift({
+                        kind: DataKind.text,
+                        value: `The connection is opened.`,
+                        moment: Date.now(),
+                        id: this.id++,
+                    });
+                    this.setState({
+                        dataChannelIsOpen: true,
+                        acceptMessages: this.state.acceptMessages,
+                    });
+
+                };
+                event.channel.onclose = e => {
+                    this.state.acceptMessages.unshift({
+                        kind: DataKind.text,
+                        value: `The connection is closed.`,
+                        moment: Date.now(),
+                        id: this.id++,
+                    });
+                    this.setState({
+                        dataChannelIsOpen: false,
+                        acceptMessages: this.state.acceptMessages,
+                    });
+                };
+                event.channel.onmessage = e => {
+                    if (typeof e.data === "string") {
+                        this.state.acceptMessages.unshift({
+                            kind: DataKind.text,
+                            value: e.data,
+                            moment: Date.now(),
+                            id: this.id++,
+                        });
+                        this.setState({
+                            acceptMessages: this.state.acceptMessages,
+                        });
+                        notify("You got a text message!");
+                    } else {
+                        const block = this.splitFile.decodeBlock(new Uint8Array(e.data as ArrayBuffer));
+                        let currentBlockIndex = this.state.files.findIndex(f => f.fileName === block.fileName);
+                        if (currentBlockIndex === -1) {
+                            currentBlockIndex = this.state.files.length;
+                            this.state.files.push({
+                                fileName: block.fileName,
+                                blocks: [],
+                                progress: 0,
+                            });
+                            this.setState({
+                                files: this.state.files,
+                            });
+                        }
+                        const currentBlock = this.state.files[currentBlockIndex];
+                        currentBlock.blocks.push({
+                            currentBlockIndex: block.currentBlockIndex,
+                            binary: block.binary,
+                        });
+                        currentBlock.progress = Math.round(currentBlock.blocks.length * 100.0 / block.totalBlockCount);
+                        if (currentBlock.blocks.length === block.totalBlockCount) {
+                            currentBlock.blocks.sort((a, b) => a.currentBlockIndex - b.currentBlockIndex);
+                            this.state.acceptMessages.unshift({
+                                kind: DataKind.base64,
+                                value: base64.encode(new Uint8Array([...currentBlock.blocks.reduce((p, c) => new Uint8Array([...p, ...c.binary]), new Uint8Array([]))]).reduce((p, c) => p + String.fromCharCode(c), "")),
+                                name: block.fileName,
+                                moment: Date.now(),
+                                id: this.id++,
+                            });
+                            this.state.files.splice(currentBlockIndex, 1);
+                            this.setState({
+                                files: this.state.files,
+                                acceptMessages: this.state.acceptMessages,
+                            });
+                            notify("You got a file!");
+                        }
+                    }
+                };
+            };
+        }
+
+        this.timer = setInterval(() => {
+            if (blocks.length > 0) {
+                blocks.splice(0, this.state.speed).forEach(block => {
+                    this.dataChannel!.send(block);
+                });
+            }
+        }, 1000);
     }
     componentWillUnmount() {
         if (this.socket) {
             this.socket.close();
+        }
+        if (this.timer) {
+            clearInterval(this.timer);
         }
     }
     render() {
@@ -132,6 +237,18 @@ export default class App extends React.Component {
             }}>Pick file</Text>
         </TouchableOpacity> : null;
         const url = baseUrl + "#" + this.state.room;
+        const tryToConnect = supportWebRTC && !this.state.dataChannelIsOpen ? <TouchableOpacity style={{
+            height: 40,
+            backgroundColor: "#fff",
+            justifyContent: "center",
+            marginBottom: 5,
+        }} onPress={() => this.tryToConnect()} >
+            <Text style={{
+                color: "#333",
+                textAlign: "center",
+            }}>try to connect</Text>
+        </TouchableOpacity> : null;
+        const progress = this.state.files.map(file => Platform.OS === "ios" ? <ProgressViewIOS progress={file.progress} /> : <ProgressBarAndroid progress={file.progress} />);
         return (
             <ScrollView style={{ flex: 1, padding: 15 }}>
                 <Text style={{ height: 40 }}>Copy-Tool</Text>
@@ -162,6 +279,8 @@ export default class App extends React.Component {
                         textAlign: "center",
                     }}>{buttonText}</Text>
                 </TouchableOpacity>
+                {tryToConnect}
+                {progress}
                 {pickFile}
                 {messages}
                 <QRCode value={url} size={150} />
@@ -173,6 +292,15 @@ export default class App extends React.Component {
     }
     private changeRoom(room: string) {
         this.setState({ room });
+    }
+    private tryToConnect() {
+        if (this.peerConnection) {
+            this.peerConnection.createOffer()
+                .then(offer => this.peerConnection!.setLocalDescription(offer))
+                .then(() => {
+                    this.socket.emit("offer", this.peerConnection!.localDescription!.toJSON());
+                });
+        }
     }
     private connectToNewRoom() {
         AsyncStorage.setItem("room", this.state.room).then(() => {
@@ -227,6 +355,24 @@ export default class App extends React.Component {
         this.socket.on("client_count", (data: { clientCount: number }) => {
             this.setState({ clientCount: data.clientCount });
         });
+        if (supportWebRTC) {
+            this.socket.on("offer", (data: { sid: string, offer: Description }) => {
+                const offer = new RTCSessionDescription(data.offer);
+                this.peerConnection!.setRemoteDescription(offer)
+                    .then(() => this.peerConnection!.createAnswer())
+                    .then(answer => this.peerConnection!.setLocalDescription(answer))
+                    .then(() => {
+                        this.socket.emit("answer", {
+                            sid: data.sid,
+                            answer: this.peerConnection!.localDescription!.toJSON(),
+                        });
+                    });
+            });
+            this.socket.on("answer", (data: { sid: string, answer: Description }) => {
+                const answer = new RTCSessionDescription(data.answer);
+                this.peerConnection!.setRemoteDescription(answer);
+            });
+        }
     }
     private copyText() {
         if (this.state.clientCount <= 0) {
@@ -281,25 +427,38 @@ export default class App extends React.Component {
                 const extensionName = res.type.split("/")[1];
                 const fileName = res.fileName || `no name.${extensionName}`;
 
-                if (res.fileSize >= 10 * 1024 * 1024) {
-                    this.state.acceptMessages.unshift({
-                        kind: DataKind.text,
-                        value: "the file is too large(>= 10MB).",
-                        moment: Date.now(),
-                        id: this.id++,
+                if (this.state.dataChannelIsOpen) {
+                    RNFS.readFile(res.uri, "base64").then(file => {
+                        const binary = base64.decode(file);
+                        const uint8Array = new Uint8Array(new ArrayBuffer(binary.length));
+                        for (let i = 0; i < binary.length; i++) {
+                            uint8Array[i] = binary.charCodeAt(i);
+                        }
+                        const splitFile = new SplitFile();
+                        const messageBlocks = splitFile.split(uint8Array, fileName);
+                        blocks.push(...messageBlocks);
                     });
-                    this.setState({ acceptMessages: this.state.acceptMessages });
-                    return;
-                }
+                } else {
+                    if (res.fileSize >= 10 * 1024 * 1024) {
+                        this.state.acceptMessages.unshift({
+                            kind: DataKind.text,
+                            value: "the file is too large(>= 10MB).",
+                            moment: Date.now(),
+                            id: this.id++,
+                        });
+                        this.setState({ acceptMessages: this.state.acceptMessages });
+                        return;
+                    }
 
-                RNFS.readFile(res.uri, "base64").then(file => {
-                    this.socket.emit("copy", {
-                        kind: DataKind.base64,
-                        value: file,
-                        name: fileName,
-                        type: res.type,
+                    RNFS.readFile(res.uri, "base64").then(file => {
+                        this.socket.emit("copy", {
+                            kind: DataKind.base64,
+                            value: file,
+                            name: fileName,
+                            type: res.type,
+                        });
                     });
-                });
+                }
             }
         });
     }
@@ -312,7 +471,7 @@ export default class App extends React.Component {
     }
 }
 
-export type CopyData = {
+type CopyData = {
     kind: DataKind.text,
     value: string,
 };
@@ -341,7 +500,21 @@ type Base64Data = {
     kind: DataKind.base64;
     value: string;
     name: string;
-    type: string;
+    type?: string;
     moment: number;
     id: number;
+};
+
+type Block = {
+    fileName: string;
+    blocks: {
+        currentBlockIndex: number,
+        binary: Uint8Array,
+    }[];
+    progress: number,
+};
+
+type Description = {
+    type: "offer" | "answer",
+    sdp: string,
 };

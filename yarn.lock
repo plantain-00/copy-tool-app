@@ -2080,6 +2080,10 @@ find-up@^2.0.0, find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
+fluent-binary-converter@2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/fluent-binary-converter/-/fluent-binary-converter-2.0.2.tgz#4bc58bad51c8e20e9064ed409a937c17a020f229"
+
 for-in@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -2949,6 +2953,13 @@ jest@^21.2.1:
   resolved "https://registry.yarnpkg.com/jest/-/jest-21.2.1.tgz#c964e0b47383768a1438e3ccf3c3d470327604e1"
   dependencies:
     jest-cli "^21.2.1"
+
+js-split-file@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/js-split-file/-/js-split-file-2.0.0.tgz#3b8b9e19ca7c6fdbf513b393c29bbdc7614b7b28"
+  dependencies:
+    fluent-binary-converter "2"
+    tslib "1"
 
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
@@ -4076,6 +4087,14 @@ react-native-qrcode@0.2.6:
     create-react-class "^15.6.0"
     prop-types "^15.5.10"
     qr.js "0.0.0"
+
+react-native-webrtc@1.58.3:
+  version "1.58.3"
+  resolved "https://registry.yarnpkg.com/react-native-webrtc/-/react-native-webrtc-1.58.3.tgz#4d4f4f057ccf1ec25f985c63ada6c4a1b44e5c49"
+  dependencies:
+    base64-js "^1.1.2"
+    event-target-shim "^1.0.5"
+    prop-types "^15.5.10"
 
 react-native@*, react-native@0.51.0:
   version "0.51.0"
