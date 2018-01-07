@@ -54,3 +54,6 @@ buck-out/
 
 *.js
 !*.config.js
+.settings
+.project
+.classpath

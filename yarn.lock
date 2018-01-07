@@ -2080,9 +2080,9 @@ find-up@^2.0.0, find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
-fluent-binary-converter@2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/fluent-binary-converter/-/fluent-binary-converter-2.0.2.tgz#4bc58bad51c8e20e9064ed409a937c17a020f229"
+fluent-binary-converter@4:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/fluent-binary-converter/-/fluent-binary-converter-4.0.1.tgz#6ccbdd66253622221f1cbc4ebc2196d175e20b49"
 
 for-in@^1.0.1:
   version "1.0.2"
@@ -2954,11 +2954,12 @@ jest@^21.2.1:
   dependencies:
     jest-cli "^21.2.1"
 
-js-split-file@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/js-split-file/-/js-split-file-2.0.0.tgz#3b8b9e19ca7c6fdbf513b393c29bbdc7614b7b28"
+js-split-file@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/js-split-file/-/js-split-file-2.1.0.tgz#5d5453757fafc87d2b145b1890734a9804c60386"
   dependencies:
-    fluent-binary-converter "2"
+    fluent-binary-converter "4"
+    text-encoding "0.6"
     tslib "1"
 
 js-tokens@^3.0.0, js-tokens@^3.0.2:
@@ -4869,6 +4870,10 @@ test-exclude@^4.1.1:
     object-assign "^4.1.0"
     read-pkg-up "^1.0.1"
     require-main-filename "^1.0.1"
+
+text-encoding@0.6:
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/text-encoding/-/text-encoding-0.6.4.tgz#e399a982257a276dae428bb92845cb71bdc26d19"
 
 text-extensions@^1.0.0:
   version "1.7.0"
