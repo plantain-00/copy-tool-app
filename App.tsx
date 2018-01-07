@@ -30,6 +30,15 @@ function notify(title: string) {
     PushNotification.localNotification({ message: title });
 }
 
+function uint8ArrayToBase64(array: Uint8Array) {
+    let result = ""; // it doesn't support for...of and reduce
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < array.length; i++) {
+        result += String.fromCharCode(array[i]);
+    }
+    return base64.encode(result);
+}
+
 const baseUrl = "https://copy.yorkyao.xyz/";
 
 export default class App extends React.Component {
@@ -125,9 +134,10 @@ export default class App extends React.Component {
                         currentBlock.progress = Math.round(currentBlock.blocks.length * 100.0 / block.totalBlockCount);
                         if (currentBlock.blocks.length === block.totalBlockCount) {
                             currentBlock.blocks.sort((a, b) => a.currentBlockIndex - b.currentBlockIndex);
+                            const mergedUint8Array = new Uint8Array([...currentBlock.blocks.reduce((p, c) => new Uint8Array([...p, ...c.binary]), new Uint8Array([]))]);
                             this.state.acceptMessages.unshift({
                                 kind: DataKind.base64,
-                                value: base64.encode(new Uint8Array([...currentBlock.blocks.reduce((p, c) => new Uint8Array([...p, ...c.binary]), new Uint8Array([]))]).reduce((p, c) => p + String.fromCharCode(c), "")),
+                                value: uint8ArrayToBase64(mergedUint8Array),
                                 name: block.fileName,
                                 moment: Date.now(),
                                 id: this.id++,
@@ -314,9 +324,10 @@ export default class App extends React.Component {
         this.socket = io(baseUrl, { query: { room: this.state.room } });
         this.socket.on("copy", (data: TextData | ArrayBufferData | Base64Data) => {
             if (data.kind === DataKind.file) {
+                const array = new Uint8Array(data.value);
                 this.state.acceptMessages.unshift({
                     kind: DataKind.base64,
-                    value: base64.encode(new Uint8Array(data.value).reduce((p, c) => p + String.fromCharCode(c), "")),
+                    value: uint8ArrayToBase64(array),
                     name: data.name,
                     type: data.type,
                     moment: Date.now(),
