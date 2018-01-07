@@ -463,7 +463,7 @@ export default class App extends React.Component {
         });
     }
     private downloadFile(message: Base64Data) {
-        const filepath = RNFS.DocumentDirectoryPath + "/" + message.name;
+        const filepath = (Platform.OS === "android" ? RNFS.ExternalStorageDirectoryPath : RNFS.DocumentDirectoryPath) + "/" + message.name;
         RNFS.writeFile(filepath, message.value, "base64").then((success) => {
             // tslint:disable-next-line:no-console
             console.log(`file: ${filepath}`);
