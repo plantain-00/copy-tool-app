@@ -250,6 +250,8 @@ export default class App extends React.Component {
         const tryToConnect = supportWebRTC && !this.state.dataChannelIsOpen ? <TouchableOpacity style={{
             height: 40,
             backgroundColor: "#fff",
+            borderColor: "#ccc",
+            borderWidth: 1,
             justifyContent: "center",
             marginBottom: 5,
         }} onPress={() => this.tryToConnect()} >
