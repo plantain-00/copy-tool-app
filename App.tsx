@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard, ScrollView, Platform, PushNotificationIOS } from "react-native";
+import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard, ScrollView, Platform, PushNotificationIOS, Picker } from "react-native";
 import io from "socket.io-client";
 import { RelativeTime } from "relative-time-react-native-component";
 import { DocumentPicker, DocumentPickerUtil } from "react-native-document-picker";
@@ -40,6 +40,17 @@ function uint8ArrayToBase64(array: Uint8Array) {
 }
 
 const baseUrl = "https://copy.yorkyao.xyz/";
+
+const speeds = [
+    { value: 10, text: "100KB/s" },
+    { value: 20, text: "200KB/s" },
+    { value: 50, text: "500KB/s" },
+    { value: 100, text: "1MB/s" },
+    { value: 200, text: "2MB/s" },
+    { value: 500, text: "5MB/s" },
+    { value: 1000, text: "10MB/s" },
+    { value: Infinity, text: "No limit(Will block the UI)" },
+];
 
 export default class App extends React.Component {
     state = {
@@ -262,6 +273,12 @@ export default class App extends React.Component {
             }}>try to connect</Text>
         </TouchableOpacity> : null;
         const progress = this.state.files.map((file, i) => <Text key={i}>{file.fileName}: {file.progress} %</Text>);
+        const pickerItems = speeds.map((speed, i) => <Picker.Item key={i} label={speed.text} value={speed.value} />);
+        const speedPicker = <Picker
+            selectedValue={this.state.speed}
+            onValueChange={speed => this.setState({ speed })}>
+            {pickerItems}
+        </Picker>;
         return (
             <ScrollView style={{ flex: 1, padding: 15 }}>
                 <Text style={{ height: 40 }}>Copy-Tool</Text>
@@ -293,6 +310,7 @@ export default class App extends React.Component {
                 </TouchableOpacity>
                 {tryToConnect}
                 {progress}
+                {speedPicker}
                 {pickFile}
                 {messages}
                 <QRCode value={url} size={150} />
