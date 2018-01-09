@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard, ScrollView, Platform, PushNotificationIOS, ProgressBarAndroid, ProgressViewIOS } from "react-native";
+import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard, ScrollView, Platform, PushNotificationIOS } from "react-native";
 import io from "socket.io-client";
 import { RelativeTime } from "relative-time-react-native-component";
 import { DocumentPicker, DocumentPickerUtil } from "react-native-document-picker";
@@ -122,9 +122,6 @@ export default class App extends React.Component {
                                 blocks: [],
                                 progress: 0,
                             });
-                            this.setState({
-                                files: this.state.files,
-                            });
                         }
                         const currentBlock = this.state.files[currentBlockIndex];
                         currentBlock.blocks.push({
@@ -148,6 +145,10 @@ export default class App extends React.Component {
                                 acceptMessages: this.state.acceptMessages,
                             });
                             notify("You got a file!");
+                        } else {
+                            this.setState({
+                                files: this.state.files,
+                            });
                         }
                     }
                 };
@@ -260,7 +261,7 @@ export default class App extends React.Component {
                 textAlign: "center",
             }}>try to connect</Text>
         </TouchableOpacity> : null;
-        const progress = this.state.files.map(file => Platform.OS === "ios" ? <ProgressViewIOS progress={file.progress} /> : <ProgressBarAndroid progress={file.progress} />);
+        const progress = this.state.files.map((file, i) => <Text key={i}>{file.fileName}: {file.progress} %</Text>);
         return (
             <ScrollView style={{ flex: 1, padding: 15 }}>
                 <Text style={{ height: 40 }}>Copy-Tool</Text>
@@ -273,7 +274,6 @@ export default class App extends React.Component {
                 </TextInput>
                 <TextInput style={{ height: 110, marginBottom: 5 }}
                     placeholder="text message"
-                    autoFocus
                     multiline
                     autoCapitalize="none"
                     numberOfLines={5}
