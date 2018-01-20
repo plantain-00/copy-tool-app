@@ -3,9 +3,9 @@
 
 // import renderer from "react-test-renderer";
 
-it("renders without crashing", () => {
+it('renders without crashing', () => {
 //   const app = renderer.create(<App />);
 //   const rendered = app.toJSON();
 //   expect(rendered).toBeTruthy();
 //   app.unmount();
-});
+})

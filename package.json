@@ -20,6 +20,7 @@
     "markdownlint-cli": "0.6.0",
     "react-test-renderer": "16.2.0",
     "tslint": "5.8.0",
+    "tslint-config-standard": "7.0.0",
     "typescript": "2.6.2"
   },
   "scripts": {
@@ -27,7 +28,8 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "build": "tsc",
-    "lint": "tslint *.tsx && commitlint --from=HEAD~1 && markdownlint README.md",
+    "lint": "tslint '*.tsx' && commitlint --from=HEAD~1 && markdownlint README.md",
+    "fix": "tslint '*.tsx' --fix",
     "release-android": "cd android && ./gradlew assembleRelease",
     "test": "node node_modules/jest/bin/jest.js"
   },
