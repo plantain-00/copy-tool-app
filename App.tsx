@@ -32,7 +32,6 @@ function notify (title: string) {
 
 function uint8ArrayToBase64 (array: Uint8Array) {
   let result = '' // it doesn't support for...of and reduce
-    // tslint:disable-next-line:prefer-for-of
   for (let i = 0; i < array.length; i++) {
     result += String.fromCharCode(array[i])
   }
@@ -452,7 +451,6 @@ export default class App extends React.Component {
       filetype: [DocumentPickerUtil.allFiles()]
     }, (error, res) => {
       if (error) {
-                // tslint:disable-next-line:no-console
         console.error(error)
       } else {
         const extensionName = res.type.split('/')[1]
@@ -496,7 +494,6 @@ export default class App extends React.Component {
   private downloadFile (message: Base64Data) {
     const filepath = (Platform.OS === 'android' ? RNFS.ExternalStorageDirectoryPath : RNFS.DocumentDirectoryPath) + '/' + message.name
     RNFS.writeFile(filepath, message.value, 'base64').then((success) => {
-            // tslint:disable-next-line:no-console
       console.log(`file: ${filepath}`)
     })
   }

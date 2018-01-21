@@ -39,9 +39,22 @@
 		3065571B1FFA14AD0069BD4E /* libRNDocumentPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 306556FF1FFA12250069BD4E /* libRNDocumentPicker.a */; };
 		3065571C1FFA14D80069BD4E /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 306557031FFA12250069BD4E /* libRNFS.a */; };
 		3065571D1FFA15060069BD4E /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 306557051FFA12250069BD4E /* libRNFS.a */; };
+		30BD8F0620137F4D0001198F /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BD8F0520137F4D0001198F /* WebRTC.framework */; };
+		30BD8F07201380FC0001198F /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BD8F0520137F4D0001198F /* WebRTC.framework */; };
+		30BD8F08201380FC0001198F /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30BD8F0520137F4D0001198F /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30BD8F0B201381330001198F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BD8F0A201381330001198F /* AVFoundation.framework */; };
+		30BD8F0D2013813F0001198F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BD8F0C2013813F0001198F /* AudioToolbox.framework */; };
+		30BD8F0F201381490001198F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BD8F0E201381490001198F /* CoreGraphics.framework */; };
+		30BD8F11201381520001198F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BD8F10201381520001198F /* GLKit.framework */; };
+		30BD8F13201381650001198F /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BD8F12201381650001198F /* CoreAudio.framework */; };
+		30BD8F152013816F0001198F /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BD8F142013816F0001198F /* CoreVideo.framework */; };
+		30BD8F17201381790001198F /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BD8F16201381790001198F /* VideoToolbox.framework */; };
+		30BD8F19201381830001198F /* libc.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BD8F18201381830001198F /* libc.tbd */; };
+		30BD8F1B201381910001198F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BD8F1A201381910001198F /* libsqlite3.tbd */; };
+		30BD8F1D2013819B0001198F /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BD8F1C2013819B0001198F /* libstdc++.tbd */; };
 		3461C80E14224250AA36333D /* libRNDocumentPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2B2B7AF515547B597D745D7 /* libRNDocumentPicker.a */; };
+		37E8EDFF6BBF499D944ACC05 /* libRCTWebRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2161CC0AC90F42158549588B /* libRCTWebRTC.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
-		70FFDC24F5B74FEBAA1AAAFA /* libRCTWebRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D90A1B38EAD948D6BA5D6233 /* libRCTWebRTC.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 /* End PBXBuildFile section */
@@ -173,6 +186,13 @@
 			remoteGlobalIDString = 3D05745F1DE6004600184BB4;
 			remoteInfo = "RCTPushNotification-tvOS";
 		};
+		30BD8F0320137E920001198F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5F12CD4696124EDEA554F3CC /* RCTWebRTC.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 35A2221F1CB493700015FD5C;
+			remoteInfo = RCTWebRTC;
+		};
 		30EFBF6B1FFA79EA00F910C8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -214,13 +234,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 9936F32F1F5F2E5B0010BF04;
 			remoteInfo = "privatedata-tvOS";
-		};
-		30EFBF7D1FFA79EA00F910C8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0AEC1AAFF7D644E8815E99CA /* RCTWebRTC.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 35A2221F1CB493700015FD5C;
-			remoteInfo = RCTWebRTC;
 		};
 		3DAD3E831DF850E9000B6D8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -350,6 +363,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		30BD8F09201380FC0001198F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				30BD8F08201380FC0001198F /* WebRTC.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -360,7 +387,6 @@
 		00E356EE1AD99517003FC87E /* copytoolappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = copytoolappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* copytoolappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = copytoolappTests.m; sourceTree = "<group>"; };
-		0AEC1AAFF7D644E8815E99CA /* RCTWebRTC.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTWebRTC.xcodeproj; path = "../node_modules/react-native-webrtc/ios/RCTWebRTC.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* copytoolapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = copytoolapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -371,17 +397,29 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = copytoolapp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = copytoolapp/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		2161CC0AC90F42158549588B /* libRCTWebRTC.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTWebRTC.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* copytoolapp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "copytoolapp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* copytoolapp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "copytoolapp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3065570F1FFA130A0069BD4E /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
+		30BD8F0520137F4D0001198F /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = "../node_modules/react-native-webrtc/ios/WebRTC.framework"; sourceTree = "<group>"; };
+		30BD8F0A201381330001198F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		30BD8F0C2013813F0001198F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		30BD8F0E201381490001198F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		30BD8F10201381520001198F /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		30BD8F12201381650001198F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		30BD8F142013816F0001198F /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		30BD8F16201381790001198F /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		30BD8F18201381830001198F /* libc.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libc.tbd; path = usr/lib/libc.tbd; sourceTree = SDKROOT; };
+		30BD8F1A201381910001198F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		30BD8F1C2013819B0001198F /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		5F12CD4696124EDEA554F3CC /* RCTWebRTC.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTWebRTC.xcodeproj; path = "../node_modules/react-native-webrtc/ios/RCTWebRTC.xcodeproj"; sourceTree = "<group>"; };
 		6E3CA639BB0A4C48A7C487C3 /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8D71211E4BDE4A278A448F0A /* RNDocumentPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDocumentPicker.xcodeproj; path = "../node_modules/react-native-document-picker/ios/RNDocumentPicker.xcodeproj"; sourceTree = "<group>"; };
 		9EB7260307CB4F03A9FAC062 /* RNFS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		D90A1B38EAD948D6BA5D6233 /* libRCTWebRTC.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTWebRTC.a; sourceTree = "<group>"; };
 		F2B2B7AF515547B597D745D7 /* libRNDocumentPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDocumentPicker.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -398,6 +436,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30BD8F1D2013819B0001198F /* libstdc++.tbd in Frameworks */,
+				30BD8F1B201381910001198F /* libsqlite3.tbd in Frameworks */,
+				30BD8F19201381830001198F /* libc.tbd in Frameworks */,
+				30BD8F17201381790001198F /* VideoToolbox.framework in Frameworks */,
+				30BD8F152013816F0001198F /* CoreVideo.framework in Frameworks */,
+				30BD8F13201381650001198F /* CoreAudio.framework in Frameworks */,
+				30BD8F11201381520001198F /* GLKit.framework in Frameworks */,
+				30BD8F0F201381490001198F /* CoreGraphics.framework in Frameworks */,
+				30BD8F0D2013813F0001198F /* AudioToolbox.framework in Frameworks */,
+				30BD8F0B201381330001198F /* AVFoundation.framework in Frameworks */,
 				3065571D1FFA15060069BD4E /* libRNFS.a in Frameworks */,
 				3065571C1FFA14D80069BD4E /* libRNFS.a in Frameworks */,
 				3065571B1FFA14AD0069BD4E /* libRNDocumentPicker.a in Frameworks */,
@@ -405,6 +453,7 @@
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				30BD8F07201380FC0001198F /* WebRTC.framework in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -415,9 +464,10 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				30BD8F0620137F4D0001198F /* WebRTC.framework in Frameworks */,
 				3461C80E14224250AA36333D /* libRNDocumentPicker.a in Frameworks */,
 				281BD3497CDF47039430324D /* libRNFS.a in Frameworks */,
-				70FFDC24F5B74FEBAA1AAAFA /* libRCTWebRTC.a in Frameworks */,
+				37E8EDFF6BBF499D944ACC05 /* libRCTWebRTC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,7 +615,7 @@
 			children = (
 				F2B2B7AF515547B597D745D7 /* libRNDocumentPicker.a */,
 				6E3CA639BB0A4C48A7C487C3 /* libRNFS.a */,
-				D90A1B38EAD948D6BA5D6233 /* libRCTWebRTC.a */,
+				2161CC0AC90F42158549588B /* libRCTWebRTC.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -599,14 +649,24 @@
 		306557181FFA143F0069BD4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30BD8F1C2013819B0001198F /* libstdc++.tbd */,
+				30BD8F1A201381910001198F /* libsqlite3.tbd */,
+				30BD8F18201381830001198F /* libc.tbd */,
+				30BD8F16201381790001198F /* VideoToolbox.framework */,
+				30BD8F142013816F0001198F /* CoreVideo.framework */,
+				30BD8F12201381650001198F /* CoreAudio.framework */,
+				30BD8F10201381520001198F /* GLKit.framework */,
+				30BD8F0E201381490001198F /* CoreGraphics.framework */,
+				30BD8F0C2013813F0001198F /* AudioToolbox.framework */,
+				30BD8F0A201381330001198F /* AVFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		30EFBF7A1FFA79EA00F910C8 /* Products */ = {
+		30BD8F0020137E920001198F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				30EFBF7E1FFA79EA00F910C8 /* libRCTWebRTC.a */,
+				30BD8F0420137E920001198F /* libRCTWebRTC.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -647,7 +707,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				8D71211E4BDE4A278A448F0A /* RNDocumentPicker.xcodeproj */,
 				9EB7260307CB4F03A9FAC062 /* RNFS.xcodeproj */,
-				0AEC1AAFF7D644E8815E99CA /* RCTWebRTC.xcodeproj */,
+				5F12CD4696124EDEA554F3CC /* RCTWebRTC.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -664,6 +724,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				30BD8F0520137F4D0001198F /* WebRTC.framework */,
 				13B07FAE1A68108700A75B9A /* copytoolapp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* copytoolappTests */,
@@ -725,6 +786,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				30BD8F09201380FC0001198F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -852,8 +914,8 @@
 					ProjectRef = 00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */;
 				},
 				{
-					ProductGroup = 30EFBF7A1FFA79EA00F910C8 /* Products */;
-					ProjectRef = 0AEC1AAFF7D644E8815E99CA /* RCTWebRTC.xcodeproj */;
+					ProductGroup = 30BD8F0020137E920001198F /* Products */;
+					ProjectRef = 5F12CD4696124EDEA554F3CC /* RCTWebRTC.xcodeproj */;
 				},
 				{
 					ProductGroup = 139FDEE71B06529A00C62182 /* Products */;
@@ -995,6 +1057,13 @@
 			remoteRef = 306557161FFA130A0069BD4E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		30BD8F0420137E920001198F /* libRCTWebRTC.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTWebRTC.a;
+			remoteRef = 30BD8F0320137E920001198F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		30EFBF6C1FFA79EA00F910C8 /* libthird-party.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1035,13 +1104,6 @@
 			fileType = archive.ar;
 			path = "libprivatedata-tvOS.a";
 			remoteRef = 30EFBF751FFA79EA00F910C8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		30EFBF7E1FFA79EA00F910C8 /* libRCTWebRTC.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTWebRTC.a;
-			remoteRef = 30EFBF7D1FFA79EA00F910C8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */ = {
@@ -1320,8 +1382,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1349,8 +1409,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1367,6 +1425,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				ENABLE_BITCODE = NO;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../node_modules/react-native-webrtc/ios/RCTWebRTC/**";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
@@ -1374,7 +1434,9 @@
 					"$(SRCROOT)/../node_modules/react-native-webrtc/ios/RCTWebRTC/**",
 				);
 				INFOPLIST_FILE = copytoolapp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../node_modules/react-native-webrtc/ios/RCTWebRTC/**";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1390,6 +1452,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = NO;
+				ENABLE_BITCODE = NO;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../node_modules/react-native-webrtc/ios/RCTWebRTC/**";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
@@ -1397,7 +1462,9 @@
 					"$(SRCROOT)/../node_modules/react-native-webrtc/ios/RCTWebRTC/**",
 				);
 				INFOPLIST_FILE = copytoolapp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../node_modules/react-native-webrtc/ios/RCTWebRTC/**";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1430,8 +1497,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1469,8 +1534,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1500,8 +1563,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.copytoolapp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1526,8 +1587,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.copytoolapp-tvOSTests";
