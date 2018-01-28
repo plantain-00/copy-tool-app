@@ -41,14 +41,14 @@ function uint8ArrayToBase64 (array: Uint8Array) {
 const baseUrl = 'https://copy.yorkyao.xyz/'
 
 const speeds = [
-    { value: 10, text: '100KB/s' },
-    { value: 20, text: '200KB/s' },
-    { value: 50, text: '500KB/s' },
-    { value: 100, text: '1MB/s' },
-    { value: 200, text: '2MB/s' },
-    { value: 500, text: '5MB/s' },
-    { value: 1000, text: '10MB/s' },
-    { value: Infinity, text: 'No limit(Will block the UI)' }
+  { value: 10, text: '100KB/s' },
+  { value: 20, text: '200KB/s' },
+  { value: 50, text: '500KB/s' },
+  { value: 100, text: '1MB/s' },
+  { value: 200, text: '2MB/s' },
+  { value: 500, text: '5MB/s' },
+  { value: 1000, text: '10MB/s' },
+  { value: Infinity, text: 'No limit(Will block the UI)' }
 ]
 
 export default class App extends React.Component {
@@ -204,45 +204,45 @@ export default class App extends React.Component {
           borderWidth: 1,
           justifyContent: 'center'
         }} onPress={() => this.copyTextToClipboard(message.value)}>
-                    <Text style={{ textAlign: 'center' }}>copy</Text>
-                </TouchableOpacity>
+          <Text style={{ textAlign: 'center' }}>copy</Text>
+        </TouchableOpacity>
       } else if (message.kind === 'base64') {
         button = <TouchableOpacity style={{
           paddingLeft: 7,
           paddingRight: 7,
           justifyContent: 'center'
         }} onPress={() => this.downloadFile(message)}>
-                    <Text style={{ textAlign: 'center', color: '#337ab7' }}>{message.name}</Text>
-                </TouchableOpacity>
+          <Text style={{ textAlign: 'center', color: '#337ab7' }}>{message.name}</Text>
+        </TouchableOpacity>
       }
       return (
-                <View key={message.id}>
-                    <View style={{ height: 21, flexDirection: 'row' }}>
-                        <Text style={{
-                          minWidth: 67,
-                          backgroundColor: '#777',
-                          color: '#fff',
-                          borderRadius: 3,
-                          justifyContent: 'center',
-                          textAlign: 'center',
-                          paddingLeft: 7,
-                          paddingRight: 7
-                        }}>
-                            <RelativeTime time={message.moment}></RelativeTime>
-                        </Text>
-                        <Text style={{
-                          backgroundColor: '#5bc0de',
-                          color: '#fff',
-                          borderRadius: 3,
-                          justifyContent: 'center',
-                          textAlign: 'center',
-                          paddingLeft: 7,
-                          paddingRight: 7
-                        }}>{message.kind}</Text>
-                        {button}
-                    </View>
-                    {content}
-                </View>
+        <View key={message.id}>
+          <View style={{ height: 21, flexDirection: 'row' }}>
+            <Text style={{
+              minWidth: 67,
+              backgroundColor: '#777',
+              color: '#fff',
+              borderRadius: 3,
+              justifyContent: 'center',
+              textAlign: 'center',
+              paddingLeft: 7,
+              paddingRight: 7
+            }}>
+              <RelativeTime time={message.moment}></RelativeTime>
+            </Text>
+            <Text style={{
+              backgroundColor: '#5bc0de',
+              color: '#fff',
+              borderRadius: 3,
+              justifyContent: 'center',
+              textAlign: 'center',
+              paddingLeft: 7,
+              paddingRight: 7
+            }}>{message.kind}</Text>
+            {button}
+          </View>
+          {content}
+        </View>
       )
     })
     const buttonText = this.state.clientCount > 0 ? `Copy the text to ${this.state.clientCount} clients` : 'No clients to sent'
@@ -252,11 +252,11 @@ export default class App extends React.Component {
       justifyContent: 'center',
       marginBottom: 5
     }} onPress={() => this.pickFile()} >
-            <Text style={{
-              color: '#fff',
-              textAlign: 'center'
-            }}>Pick file</Text>
-        </TouchableOpacity> : null
+      <Text style={{
+        color: '#fff',
+        textAlign: 'center'
+      }}>Pick file</Text>
+    </TouchableOpacity> : null
     const url = baseUrl + '#' + this.state.room
     const tryToConnect = supportWebRTC && !this.state.dataChannelIsOpen ? <TouchableOpacity style={{
       height: 40,
@@ -266,54 +266,54 @@ export default class App extends React.Component {
       justifyContent: 'center',
       marginBottom: 5
     }} onPress={() => this.tryToConnect()} >
-            <Text style={{
-              color: '#333',
-              textAlign: 'center'
-            }}>try to connect</Text>
-        </TouchableOpacity> : null
+      <Text style={{
+        color: '#333',
+        textAlign: 'center'
+      }}>try to connect</Text>
+    </TouchableOpacity> : null
     const progress = this.state.files.map((file, i) => <Text key={i}>{file.fileName}: {file.progress} %</Text>)
     const pickerItems = speeds.map((speed, i) => <Picker.Item key={i} label={speed.text} value={speed.value} />)
     const speedPicker = <Picker
-            selectedValue={this.state.speed}
-            onValueChange={speed => this.setState({ speed })}>
-            {pickerItems}
-        </Picker>
+      selectedValue={this.state.speed}
+      onValueChange={speed => this.setState({ speed })}>
+      {pickerItems}
+    </Picker>
     return (
-            <ScrollView style={{ flex: 1, padding: 15 }}>
-                <Text style={{ height: 40 }}>Copy-Tool</Text>
-                <TextInput style={{ height: 40, width: '100%', marginBottom: 5 }}
-                    placeholder='room'
-                    autoCapitalize='none'
-                    onChangeText={room => this.changeRoom(room)}
-                    onBlur={() => this.connectToNewRoom()}
-                    value={this.state.room}>
-                </TextInput>
-                <TextInput style={{ height: 110, marginBottom: 5 }}
-                    placeholder='text message'
-                    multiline
-                    autoCapitalize='none'
-                    numberOfLines={5}
-                    onChangeText={text => this.changeNewText(text)}
-                    value={this.state.newText}>
-                </TextInput>
-                <TouchableOpacity style={{
-                  height: 40,
-                  backgroundColor: '#286090',
-                  justifyContent: 'center',
-                  marginBottom: 5
-                }} onPress={() => this.copyText()} >
-                    <Text style={{
-                      color: '#fff',
-                      textAlign: 'center'
-                    }}>{buttonText}</Text>
-                </TouchableOpacity>
-                {tryToConnect}
-                {progress}
-                {speedPicker}
-                {pickFile}
-                {messages}
-                <QRCode value={url} size={150} />
-            </ScrollView>
+      <ScrollView style={{ flex: 1, padding: 15 }}>
+        <Text style={{ height: 40 }}>Copy-Tool</Text>
+        <TextInput style={{ height: 40, width: '100%', marginBottom: 5 }}
+          placeholder='room'
+          autoCapitalize='none'
+          onChangeText={room => this.changeRoom(room)}
+          onBlur={() => this.connectToNewRoom()}
+          value={this.state.room}>
+        </TextInput>
+        <TextInput style={{ height: 110, marginBottom: 5 }}
+          placeholder='text message'
+          multiline
+          autoCapitalize='none'
+          numberOfLines={5}
+          onChangeText={text => this.changeNewText(text)}
+          value={this.state.newText}>
+        </TextInput>
+        <TouchableOpacity style={{
+          height: 40,
+          backgroundColor: '#286090',
+          justifyContent: 'center',
+          marginBottom: 5
+        }} onPress={() => this.copyText()} >
+          <Text style={{
+            color: '#fff',
+            textAlign: 'center'
+          }}>{buttonText}</Text>
+        </TouchableOpacity>
+        {tryToConnect}
+        {progress}
+        {speedPicker}
+        {pickFile}
+        {messages}
+        <QRCode value={url} size={150} />
+      </ScrollView>
     )
   }
   private changeNewText (text: string) {
@@ -325,10 +325,10 @@ export default class App extends React.Component {
   private tryToConnect () {
     if (this.peerConnection) {
       this.peerConnection.createOffer()
-                .then(offer => this.peerConnection!.setLocalDescription(offer))
-                .then(() => {
-                  this.socket.emit('offer', this.peerConnection!.localDescription!.toJSON())
-                })
+        .then(offer => this.peerConnection!.setLocalDescription(offer))
+        .then(() => {
+          this.socket.emit('offer', this.peerConnection!.localDescription!.toJSON())
+        })
     }
   }
   private connectToNewRoom () {
@@ -389,14 +389,14 @@ export default class App extends React.Component {
       this.socket.on('offer', (data: { sid: string, offer: Description }) => {
         const offer = new RTCSessionDescription(data.offer)
         this.peerConnection!.setRemoteDescription(offer)
-                    .then(() => this.peerConnection!.createAnswer())
-                    .then(answer => this.peerConnection!.setLocalDescription(answer))
-                    .then(() => {
-                      this.socket.emit('answer', {
-                        sid: data.sid,
-                        answer: this.peerConnection!.localDescription!.toJSON()
-                      })
-                    })
+          .then(() => this.peerConnection!.createAnswer())
+          .then(answer => this.peerConnection!.setLocalDescription(answer))
+          .then(() => {
+            this.socket.emit('answer', {
+              sid: data.sid,
+              answer: this.peerConnection!.localDescription!.toJSON()
+            })
+          })
       })
       this.socket.on('answer', (data: { sid: string, answer: Description }) => {
         const answer = new RTCSessionDescription(data.answer)
@@ -505,9 +505,9 @@ type CopyData = {
 }
 
 const enum DataKind {
-    text = 'text',
-    file = 'file',
-    base64 = 'base64'
+  text = 'text',
+  file = 'file',
+  base64 = 'base64'
 }
 
 type TextData = {
