@@ -62,11 +62,11 @@ export default class App extends React.Component {
     dataChannelIsOpen: false
   }
   private dataChannel: RTCDataChannel | null = null
-  private socket: SocketIOClient.Socket
+  private socket: SocketIOClient.Socket | undefined
   private id = 1
   private peerConnection = supportWebRTC ? new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] }) : null
   private splitFile = new SplitFile()
-  private timer: NodeJS.Timer
+  private timer: NodeJS.Timer | undefined
   componentDidMount () {
     AsyncStorage.getItem('room').then(roomInStorage => {
       if (!roomInStorage) {
@@ -327,7 +327,7 @@ export default class App extends React.Component {
       this.peerConnection.createOffer()
         .then(offer => this.peerConnection!.setLocalDescription(offer))
         .then(() => {
-          this.socket.emit('offer', this.peerConnection!.localDescription!.toJSON())
+          this.socket!.emit('offer', this.peerConnection!.localDescription!.toJSON())
         })
     }
   }
@@ -392,7 +392,7 @@ export default class App extends React.Component {
           .then(() => this.peerConnection!.createAnswer())
           .then(answer => this.peerConnection!.setLocalDescription(answer))
           .then(() => {
-            this.socket.emit('answer', {
+            this.socket!.emit('answer', {
               sid: data.sid,
               answer: this.peerConnection!.localDescription!.toJSON()
             })
@@ -429,7 +429,7 @@ export default class App extends React.Component {
       kind: DataKind.text,
       value: this.state.newText
     }
-    this.socket.emit('copy', copyData)
+    this.socket!.emit('copy', copyData)
     this.setState({ newText: '' })
   }
   private copyTextToClipboard (text: string) {
@@ -480,7 +480,7 @@ export default class App extends React.Component {
           }
 
           RNFS.readFile(res.uri, 'base64').then(file => {
-            this.socket.emit('copy', {
+            this.socket!.emit('copy', {
               kind: DataKind.base64,
               value: file,
               name: fileName,
