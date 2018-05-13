@@ -14,7 +14,7 @@ const supportWebRTC = true
 
 const blocks: Uint8Array[] = []
 
-function getRoom () {
+function getRoom() {
   return Math.round(Math.random() * 35 * Math.pow(36, 9)).toString(36)
 }
 
@@ -26,11 +26,11 @@ PushNotification.configure({
   }
 })
 
-function notify (title: string) {
+function notify(title: string) {
   PushNotification.localNotification({ message: title })
 }
 
-function uint8ArrayToBase64 (array: Uint8Array) {
+function uint8ArrayToBase64(array: Uint8Array) {
   let result = '' // it doesn't support for...of and reduce
   for (let i = 0; i < array.length; i++) {
     result += String.fromCharCode(array[i])
@@ -39,6 +39,7 @@ function uint8ArrayToBase64 (array: Uint8Array) {
 }
 
 const baseUrl = 'https://copy.yorkyao.xyz/'
+const gotFileMessage = 'You got a file!'
 
 const speeds = [
   { value: 10, text: '100KB/s' },
@@ -67,7 +68,8 @@ export default class App extends React.Component {
   private peerConnection = supportWebRTC ? new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] }) : null
   private splitFile = new SplitFile()
   private timer: NodeJS.Timer | undefined
-  componentDidMount () {
+  // tslint:disable-next-line:cognitive-complexity
+  componentDidMount() {
     AsyncStorage.getItem('room').then(roomInStorage => {
       if (!roomInStorage) {
         this.setState({ room: getRoom() }, () => {
@@ -154,7 +156,7 @@ export default class App extends React.Component {
                 files: this.state.files,
                 acceptMessages: this.state.acceptMessages
               })
-              notify('You got a file!')
+              notify(gotFileMessage)
             } else {
               this.setState({
                 files: this.state.files
@@ -173,7 +175,7 @@ export default class App extends React.Component {
       }
     }, 1000)
   }
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.socket) {
       this.socket.close()
     }
@@ -181,7 +183,7 @@ export default class App extends React.Component {
       clearInterval(this.timer)
     }
   }
-  render () {
+  render() {
     const messages = this.state.acceptMessages.map(message => {
       let content: JSX.Element | undefined
       let button: JSX.Element | undefined
@@ -316,13 +318,13 @@ export default class App extends React.Component {
       </ScrollView>
     )
   }
-  private changeNewText (text: string) {
+  private changeNewText(text: string) {
     this.setState({ newText: text })
   }
-  private changeRoom (room: string) {
+  private changeRoom(room: string) {
     this.setState({ room })
   }
-  private tryToConnect () {
+  private tryToConnect() {
     if (this.peerConnection) {
       this.peerConnection.createOffer()
         .then(offer => this.peerConnection!.setLocalDescription(offer))
@@ -331,7 +333,7 @@ export default class App extends React.Component {
         })
     }
   }
-  private connectToNewRoom () {
+  private connectToNewRoom() {
     AsyncStorage.setItem('room', this.state.room).then(() => {
       if (this.socket) {
         this.socket.disconnect()
@@ -339,7 +341,7 @@ export default class App extends React.Component {
       this.connect()
     })
   }
-  private connect () {
+  private connect() {
     this.socket = io(baseUrl, { query: { room: this.state.room } })
     this.socket.on('copy', (data: TextData | ArrayBufferData | Base64Data) => {
       if (data.kind === DataKind.file) {
@@ -353,7 +355,7 @@ export default class App extends React.Component {
           id: this.id++
         })
         this.setState({ acceptMessages: this.state.acceptMessages })
-        notify('You got a file!')
+        notify(gotFileMessage)
       } else if (data.kind === DataKind.base64) {
         this.state.acceptMessages.unshift({
           kind: DataKind.base64,
@@ -364,7 +366,7 @@ export default class App extends React.Component {
           id: this.id++
         })
         this.setState({ acceptMessages: this.state.acceptMessages })
-        notify('You got a file!')
+        notify(gotFileMessage)
       } else {
         data.moment = Date.now()
         data.id = this.id++
@@ -404,7 +406,7 @@ export default class App extends React.Component {
       })
     }
   }
-  private copyText () {
+  private copyText() {
     if (this.state.clientCount <= 0) {
       this.state.acceptMessages.unshift({
         kind: DataKind.text,
@@ -432,10 +434,11 @@ export default class App extends React.Component {
     this.socket!.emit('copy', copyData)
     this.setState({ newText: '' })
   }
-  private copyTextToClipboard (text: string) {
+  private copyTextToClipboard(text: string) {
     Clipboard.setString(text)
   }
-  private pickFile () {
+  // tslint:disable-next-line:cognitive-complexity
+  private pickFile() {
     if (this.state.clientCount <= 0) {
       this.state.acceptMessages.unshift({
         kind: DataKind.text,
@@ -491,7 +494,7 @@ export default class App extends React.Component {
       }
     })
   }
-  private downloadFile (message: Base64Data) {
+  private downloadFile(message: Base64Data) {
     const filepath = (Platform.OS === 'android' ? RNFS.ExternalStorageDirectoryPath : RNFS.DocumentDirectoryPath) + '/' + message.name
     RNFS.writeFile(filepath, message.value, 'base64').then((success) => {
       console.log(`file: ${filepath}`)

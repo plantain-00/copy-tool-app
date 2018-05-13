@@ -21,6 +21,7 @@
     "react-test-renderer": "16.3.2",
     "tslint": "5.10.0",
     "tslint-config-standard": "7.0.0",
+    "tslint-sonarts": "1.6.0",
     "typescript": "2.8.3"
   },
   "scripts": {
