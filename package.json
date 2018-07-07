@@ -31,8 +31,7 @@
     "build": "tsc",
     "lint": "tslint '*.tsx' && commitlint --from=HEAD~1 && markdownlint README.md",
     "fix": "tslint '*.tsx' --fix",
-    "release-android": "cd android && ./gradlew assembleRelease",
-    "test": "node node_modules/jest/bin/jest.js"
+    "release-android": "cd android && ./gradlew assembleRelease"
   },
   "jest": {
     "preset": "jest-expo"
