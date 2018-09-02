@@ -3753,9 +3753,9 @@ jest@^23.4.0:
     import-local "^1.0.0"
     jest-cli "^23.5.0"
 
-js-split-file@2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/js-split-file/-/js-split-file-2.1.1.tgz#172b4e5ccefb4ec1a1811e3980a8bd8942f27810"
+js-split-file@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/js-split-file/-/js-split-file-2.2.0.tgz#6d47ee3e85a8879cc827e0d30d5ad02a17de4299"
   dependencies:
     fluent-binary-converter "4"
     text-encoding "0.6"

@@ -8,7 +8,7 @@ import * as base64 from 'base-64'
 import QRCode from 'react-native-qrcode'
 import PushNotification from 'react-native-push-notification'
 import { RTCDataChannel, RTCPeerConnection, RTCSessionDescription } from 'react-native-webrtc'
-import SplitFile from 'js-split-file/react-native'
+import SplitFile from 'js-split-file'
 
 const supportWebRTC = true
 
