@@ -63,11 +63,11 @@ export default class App extends React.Component {
     dataChannelIsOpen: false
   }
   private dataChannel: RTCDataChannel | null = null
-  private socket: SocketIOClient.Socket | undefined
+  private socket?: SocketIOClient.Socket
   private id = 1
   private peerConnection = supportWebRTC ? new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] }) : null
   private splitFile = new SplitFile()
-  private timer: NodeJS.Timer | undefined
+  private timer?: NodeJS.Timer
   // tslint:disable-next-line:cognitive-complexity
   componentDidMount() {
     AsyncStorage.getItem('room').then(roomInStorage => {
