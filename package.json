@@ -8,7 +8,7 @@
     "@types/base-64": "0.1.2",
     "@types/jest": "23.3.2",
     "@types/react": "16.4.14",
-    "@types/react-native": "0.56.23",
+    "@types/react-native": "0.57.0",
     "@types/react-native-document-picker": "2.0.0",
     "@types/react-native-fs": "2.8.2",
     "@types/react-native-push-notification": "3.0.2",
@@ -22,7 +22,7 @@
     "tslint": "5.11.0",
     "tslint-config-standard": "8.0.1",
     "tslint-sonarts": "1.8.0",
-    "typescript": "3.0.1"
+    "typescript": "3.1.1"
   },
   "scripts": {
     "start": "react-native start",
@@ -42,7 +42,7 @@
     "react": "16.5.2",
     "react-native": "0.57.1",
     "react-native-document-picker": "2.1.0",
-    "react-native-fs": "2.11.15",
+    "react-native-fs": "2.11.17",
     "react-native-push-notification": "3.1.1",
     "react-native-qrcode": "0.2.7",
     "react-native-webrtc": "1.67.1",
