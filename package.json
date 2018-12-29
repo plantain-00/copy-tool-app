@@ -8,7 +8,7 @@
     "@types/base-64": "0.1.2",
     "@types/jest": "23.3.10",
     "@types/react": "16.7.18",
-    "@types/react-native": "0.57.20",
+    "@types/react-native": "0.57.23",
     "@types/react-native-document-picker": "2.0.0",
     "@types/react-native-fs": "2.8.2",
     "@types/react-native-push-notification": "3.0.3",
