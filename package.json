@@ -19,9 +19,11 @@
     "jest-expo": "34.0.0",
     "markdownlint-cli": "0.17.0",
     "react-test-renderer": "16.8.6",
-    "tslint": "5.18.0",
-    "tslint-config-standard": "8.0.1",
-    "tslint-sonarts": "1.9.0",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-plugin-plantain": "0.1.2",
+    "eslint": "5.16.0",
     "type-coverage": "2.2.0",
     "typescript": "3.5.3"
   },
@@ -30,8 +32,8 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "build": "tsc",
-    "lint": "tslint '*.tsx' && commitlint --from=HEAD~1 && markdownlint README.md && type-coverage -p .",
-    "fix": "tslint '*.tsx' --fix",
+    "lint": "eslint --ext .js,.ts,.tsx *.tsx && commitlint --from=HEAD~1 && markdownlint README.md && type-coverage -p .",
+    "fix": "eslint --ext .js,.ts,.tsx *.tsx --fix",
     "release-android": "cd android && ./gradlew assembleRelease"
   },
   "jest": {

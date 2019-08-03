@@ -68,7 +68,6 @@ export default class App extends React.Component {
   private peerConnection = supportWebRTC ? new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] }) : null
   private splitFile = new SplitFile()
   private timer?: NodeJS.Timer
-  // tslint:disable-next-line:cognitive-complexity
   componentDidMount() {
     AsyncStorage.getItem('room').then(roomInStorage => {
       if (!roomInStorage) {
@@ -437,7 +436,6 @@ export default class App extends React.Component {
   private copyTextToClipboard(text: string) {
     Clipboard.setString(text)
   }
-  // tslint:disable-next-line:cognitive-complexity
   private pickFile() {
     if (this.state.clientCount <= 0) {
       this.state.acceptMessages.unshift({
@@ -502,7 +500,7 @@ export default class App extends React.Component {
   }
 }
 
-type CopyData = {
+interface CopyData {
   kind: DataKind.text,
   value: string
 }
@@ -513,21 +511,21 @@ const enum DataKind {
   base64 = 'base64'
 }
 
-type TextData = {
+interface TextData {
   kind: DataKind.text;
   value: string;
   moment: number;
   id?: number;
 }
 
-type ArrayBufferData = {
+interface ArrayBufferData {
   kind: DataKind.file;
   value: ArrayBuffer;
   name: string;
   type: string;
 }
 
-type Base64Data = {
+interface Base64Data {
   kind: DataKind.base64;
   value: string;
   name: string;
@@ -536,7 +534,7 @@ type Base64Data = {
   id: number;
 }
 
-type Block = {
+interface Block {
   fileName: string;
   blocks: {
     currentBlockIndex: number,
@@ -545,7 +543,7 @@ type Block = {
   progress: number,
 }
 
-type Description = {
+interface Description {
   type: 'offer' | 'answer',
   sdp: string
 }
