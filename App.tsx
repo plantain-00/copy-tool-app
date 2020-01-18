@@ -38,7 +38,7 @@ function uint8ArrayToBase64(array: Uint8Array) {
   return base64.encode(result)
 }
 
-const baseUrl = 'https://copy.yorkyao.xyz/'
+const baseUrl = 'https://copy.yorkyao.com/'
 const gotFileMessage = 'You got a file!'
 
 const speeds = [
