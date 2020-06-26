@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "@commitlint/cli": "9.0.1",
-    "@commitlint/config-conventional": "9.0.1",
     "@types/base-64": "0.1.3",
     "@types/jest": "26.0.3",
     "@types/react": "16.9.41",
@@ -32,7 +30,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "build": "tsc",
-    "lint": "eslint --ext .js,.ts,.tsx *.tsx && commitlint --from=HEAD~1 && markdownlint README.md && type-coverage -p .",
+    "lint": "eslint --ext .js,.ts,.tsx *.tsx && markdownlint README.md && type-coverage -p .",
     "fix": "eslint --ext .js,.ts,.tsx *.tsx --fix",
     "release-android": "cd android && ./gradlew assembleRelease"
   },
