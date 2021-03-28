@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, Text, View, TextInput, AsyncStorage, Clipboard, ScrollView, Platform, PushNotificationIOS, Picker } from 'react-native'
+import { TouchableOpacity, Text, View, TextInput, ScrollView, Platform } from 'react-native'
 import io from 'socket.io-client'
 import { RelativeTime } from 'relative-time-react-native-component'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker'
@@ -9,6 +9,10 @@ import QRCode from 'react-native-qrcode'
 import PushNotification from 'react-native-push-notification'
 import { RTCDataChannel, RTCPeerConnection, RTCSessionDescription } from 'react-native-webrtc'
 import SplitFile from 'js-split-file'
+import { Picker } from '@react-native-community/picker'
+import AsyncStorage from '@react-native-community/async-storage'
+import Clipboard from '@react-native-community/clipboard'
+import PushNotificationIOS from '@react-native-community/push-notification-ios'
 
 const supportWebRTC = true
 
