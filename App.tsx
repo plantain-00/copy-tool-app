@@ -1,6 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, Text, View, TextInput, ScrollView, Platform } from 'react-native'
-import io from 'socket.io-client'
+import io, { Socket } from 'socket.io-client'
 import { RelativeTime } from 'relative-time-react-native-component'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker'
 import * as RNFS from 'react-native-fs'
@@ -67,7 +67,7 @@ export default class App extends React.Component {
     dataChannelIsOpen: false
   }
   private dataChannel: RTCDataChannel | null = null
-  private socket?: SocketIOClient.Socket
+  private socket?: Socket
   private id = 1
   private peerConnection = supportWebRTC ? new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] }) : null
   private splitFile = new SplitFile()
