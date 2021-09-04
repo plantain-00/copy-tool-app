@@ -25,7 +25,7 @@ function getRoom() {
 PushNotification.configure({
   onNotification: notification => {
     if (Platform.OS === 'ios') {
-      (notification as any).finish(PushNotificationIOS.FetchResult.NoData)
+      notification.finish(PushNotificationIOS.FetchResult.NoData)
     }
   }
 })
@@ -35,9 +35,9 @@ function notify(title: string) {
 }
 
 function uint8ArrayToBase64(array: Uint8Array) {
-  let result = '' // it doesn't support for...of and reduce
-  for (let i = 0; i < array.length; i++) {
-    result += String.fromCharCode(array[i])
+  let result = ''
+  for (const item of array) {
+    result += String.fromCharCode(item)
   }
   return base64.encode(result)
 }
@@ -138,7 +138,7 @@ export default class App extends React.Component {
                 progress: 0
               })
             }
-            const currentBlock = this.state.files[currentBlockIndex]
+            const currentBlock = this.state.files[currentBlockIndex]!
             currentBlock.blocks.push({
               currentBlockIndex: block.currentBlockIndex,
               binary: block.binary
